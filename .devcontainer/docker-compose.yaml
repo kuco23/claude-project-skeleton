@@ -1,6 +1,6 @@
 services:
   dev:
-    image: mcr.microsoft.com/devcontainers/ubuntu:noble
+    image: mcr.microsoft.com/devcontainers/base:ubuntu24.04
     volumes:
       - ..:/workspaces/${WORKSPACE_NAME}:cached
       - ${HOME}/.claude:/home/vscode/.claude
