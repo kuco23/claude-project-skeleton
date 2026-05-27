@@ -8,7 +8,7 @@
             "version": "22"
         }
     },
-    "postCreateCommand": "npm install -g @anthropic-ai/claude-code",
+    "postCreateCommand": ".devcontainer/post-create.sh",
     "initializeCommand": ".devcontainer/initialize.sh",
     "customizations": {
         "vscode": {
@@ -23,13 +23,21 @@
                 "redhat.vscode-yaml",
                 "timonwong.shellcheck",
                 "streetsidesoftware.code-spell-checker",
-                "anthropic.claude-code"
+                "anthropic.claude-code",
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "tamasfe.even-better-toml"
             ],
             "settings": {
                 "editor.insertSpaces": true,
                 "editor.detectIndentation": false,
                 "files.trimFinalNewlines": true,
-                "files.trimTrailingWhitespace": true
+                "files.trimTrailingWhitespace": true,
+                "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python",
+                "[python]": {
+                    "editor.defaultFormatter": "ms-python.black-formatter",
+                    "editor.tabSize": 2
+                }
             }
         }
     }
