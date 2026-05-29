@@ -22,7 +22,6 @@
                 "editorconfig.editorconfig",
                 "redhat.vscode-yaml",
                 "timonwong.shellcheck",
-                "streetsidesoftware.code-spell-checker",
                 "anthropic.claude-code",
                 "ms-python.python",
                 "ms-python.black-formatter",

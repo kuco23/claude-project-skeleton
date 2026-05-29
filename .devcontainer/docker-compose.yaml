@@ -1,3 +1,5 @@
+name: ${WORKSPACE_NAME}-devbox
+
 services:
   dev:
     build:
