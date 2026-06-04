@@ -17,3 +17,17 @@ RUN if [ -f /tmp/build/pyproject.toml ]; then \
         cd /tmp/build && uv sync --no-install-project && \
         chown -R vscode:vscode /home/vscode/.venv; \
     fi && rm -rf /tmp/build
+
+# Pre-create the uv cache directory so the named volume mount inherits vscode
+# ownership on first container start. Docker copies image content into the
+# empty volume preserving permissions; on later rebuilds the volume wins, so
+# Dockerfile changes to these paths only take effect after `docker volume rm`.
+RUN mkdir -p /home/vscode/.cache/uv && chown -R vscode:vscode /home/vscode/.cache
+
+# Install Playwright browsers + OS deps when playwright was pulled in by uv
+# sync. `install-deps` runs as root (apt packages); `install` runs as vscode
+# so the browser bundle lands under the user's home cache.
+RUN if [ -x /home/vscode/.venv/bin/playwright ]; then \
+        /home/vscode/.venv/bin/playwright install-deps && \
+        su vscode -c "/home/vscode/.venv/bin/playwright install"; \
+    fi

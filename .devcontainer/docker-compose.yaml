@@ -9,6 +9,11 @@ services:
       - ..:/workspaces/${WORKSPACE_NAME}:cached
       - ${HOME}/.claude:/home/vscode/.claude
       - ${HOME}/.claude.json:/home/vscode/.claude.json
+      # uv state persisted across rebuilds. To force a refresh after a
+      # Dockerfile change to /home/vscode/.venv, run `docker volume rm`
+      # on the project-scoped uv-venv volume.
+      - uv-venv:/home/vscode/.venv
+      - uv-cache:/home/vscode/.cache/uv
     environment:
       ANTHROPIC_BASE_URL: http://claude-redact:8888
     command: sleep infinity
@@ -28,3 +33,7 @@ services:
       # security tradeoff of pinning the seed.
       CLAUDE_REDACT_SEED: ${CLAUDE_REDACT_SEED:-}
     # healthcheck inherited from the image
+
+volumes:
+  uv-venv:
+  uv-cache:
